@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,9 +25,6 @@ public class Frame extends javax.swing.JFrame {
     public Frame() {
         initComponents();
         tableModel.addColumn("Nome");
-        // tableModel.addColumn("RG");
-        // tableModel.addColumn("CPF");
-        // tableModel.addColumn("Sexo");
         tableModel.addColumn("Palpite");
         tableModel.addColumn("Menor Diferença");
         tableModel.addColumn("Numero Proximo");
@@ -285,6 +283,8 @@ public class Frame extends javax.swing.JFrame {
                 }
                 rowFile.close();
                 editRowFilePrintWriter.close();
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhuma linha selecionada");
             }
         } catch (IOException exception) {
             System.out.println(exception);
@@ -310,7 +310,13 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonTableToTXTActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = mainTable.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Nenhuma linha selecionada");
+        } else {
+            tableModel.removeRow(selectedRow);
+            mainTable.setModel(tableModel);
+        }
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     /**
